@@ -18,7 +18,7 @@
 #define X_CENTER 2123
 #define X_DEADZONE 1000   // Large deadzone to handle noisy readings
 #define Y_CENTER 2027
-#define Y_DEADZONE 1000
+#define Y_DEADZONE 250
 
 static int initialized = 0;  // Tracks whether joystick system is initialized
 
