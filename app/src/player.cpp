@@ -11,7 +11,13 @@ void Player::update(float delta) {
     // Horizontal movement only
     switch (dir) {
         case JOY_LEFT:  x -= speed * delta; break;
+        case JOY_UP_LEFT:  x -= speed * delta; break;
+        case JOY_DOWN_LEFT:  x -= speed * delta; break;
+
         case JOY_RIGHT: x += speed * delta; break;
+        case JOY_UP_RIGHT: x += speed * delta; break;
+        case JOY_DOWN_RIGHT: x += speed * delta; break;
+        
         default: break;
     }
 

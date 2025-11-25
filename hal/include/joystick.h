@@ -8,6 +8,10 @@ typedef enum {
     JS_DOWN,
     JS_LEFT,
     JS_RIGHT,
+    JS_UP_LEFT,
+    JS_UP_RIGHT,
+    JS_DOWN_LEFT,
+    JS_DOWN_RIGHT,
     JS_SELECT
     
 } JoystickDirection;

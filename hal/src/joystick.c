@@ -64,10 +64,39 @@ JoystickDirection Joystick_getDirection(void) {
     //printf("DEBUG: x=%d, y=%d (averaged)\n", x, y);  // Show averaged readings
 
     // Compare averaged values against center deadzone
-    if (x < X_CENTER - X_DEADZONE) return JS_LEFT;   // Joystick pushed left
-    if (x > X_CENTER + X_DEADZONE) return JS_RIGHT;  // Joystick pushed right
-    if (y < Y_CENTER - Y_DEADZONE) return JS_DOWN;   // Joystick pushed down
-    if (y > Y_CENTER + Y_DEADZONE) return JS_UP;     // Joystick pushed up
+        // 1. Determine Horizontal State (-1: Left, 0: Center, 1: Right)
+        int h_state = 0;
+        if (x < X_CENTER - X_DEADZONE) {
+            h_state = -1; // Left
+        } else if (x > X_CENTER + X_DEADZONE) {
+            h_state = 1;  // Right
+        }
+
+        // 2. Determine Vertical State (-1: Down, 0: Center, 1: Up)
+        // Based on your snippet: Y < Center is Down, Y > Center is Up
+        int v_state = 0;
+        if (y < Y_CENTER - Y_DEADZONE) {
+            v_state = -1; // Down
+        } else if (y > Y_CENTER + Y_DEADZONE) {
+            v_state = 1;  // Up
+        }
+
+        // 3. Combine states to return the correct Enum
+        if (v_state == 1) { // UP
+            if (h_state == -1) return JS_UP_LEFT;
+            if (h_state == 1)  return JS_UP_RIGHT;
+            return JS_UP;
+        }
+        
+        if (v_state == -1) { // DOWN
+            if (h_state == -1) return JS_DOWN_LEFT;
+            if (h_state == 1)  return JS_DOWN_RIGHT;
+            return JS_DOWN;
+        }
+
+        // If vertical is center, check horizontal
+        if (h_state == -1) return JS_LEFT;
+        if (h_state == 1)  return JS_RIGHT;
 
     return JS_NONE;  // Within deadzone → no movement detected
 

@@ -110,7 +110,7 @@ void Game::update(float delta)
     // --------------------------------------------------------
     // FIRE PLAYER BULLETS
     // --------------------------------------------------------
-    if (joystick_read_direction() == JOY_UP) {
+    if (joystick_read_direction() == (JOY_UP|JOY_UP_LEFT|JOY_UP_RIGHT)) {
         bullets.emplace_back(player.x + player.width/2, player.y - 10);
         led_blink();
     }
